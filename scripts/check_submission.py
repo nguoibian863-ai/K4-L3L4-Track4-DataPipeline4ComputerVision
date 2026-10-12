@@ -27,6 +27,9 @@ def check(level, name, detail=""):
 
 
 def sh(*cmd):
+    if sys.platform == "win32" and cmd and str(cmd[0]).endswith(".sh"):
+        bash = "C:/Program Files/Git/bin/bash.exe" if Path("C:/Program Files/Git/bin/bash.exe").exists() else "bash"
+        cmd = (bash, *cmd)
     return subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
 
 
